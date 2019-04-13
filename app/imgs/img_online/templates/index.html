@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>裂变</title>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='img_online/css/baguetteBox.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='img_online/css/gallery-clean.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='img_online/css/dropload.css')}}">
+
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <a href="https://www.growlab.cn/"> 我的博客</a>
+    </header>
+    <div class="container gallery-container">
+
+        <p class="page-description text-center"></p>
+
+        <div class="tz-gallery">
+
+            <div class="row">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/jquery-1.11.3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='img_online/js/baguetteBox.min.js') }}"></script>
+<script src="{{ url_for('static', filename='img_online/js/dropload.js') }}"></script>
+
+<script type="text/javascript">
+    function create_img_block(url) {
+        var block = '                <div class="col-sm-6 col-md-3 L_center_img">\n' +
+            '                    <div class="thumbnail">\n' +
+            '                        <a class="lightbox" href="' + url + '">\n' +
+            '                            <img src="' + url + '" alt="Park">\n' +
+            '                        </a>\n' +
+            '                        <div class="caption">\n' +
+            '\n' +
+            '                        </div>\n' +
+            '                    </div>\n' +
+            '                </div>'
+
+        return block
+    }
+
+    baguetteBox.run('.tz-gallery');
+    $(function () {
+        // 页数
+        var page = 0;
+        // dropload
+        $('.content').dropload({
+            scrollArea: window,
+            loadDownFn: function (me) {
+                page++;
+                // 拼接HTML
+                var result = '';
+                $.ajax({
+                    type: 'GET',
+                    url: '/image?page=' + page,
+                    dataType: 'json',
+                    success: function (data) {
+                        test = data
+                        var arrLen = data.length;
+                        if (arrLen > 0) {
+                            for (var i = 0; i < arrLen; i++) {
+                                result += create_img_block(data[i].real_url)
+                            }
+
+                            $('.row').append(result);
+                            // 每次数据插入，必须重置
+                            me.resetload();
+                            // 如果没有数据
+                        } else {
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                        }
+                        // 为了测试，延迟1秒加载
+                        setTimeout(function () {
+                            // 插入数据到页面，放到最后面
+                        }, 10000);
+                    },
+                    error: function (xhr, type) {
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>
