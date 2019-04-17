@@ -40,7 +40,7 @@ def update_to_qiniu(file, file_name=None):
         update_to_qiniu(file, file_name)
 
 
-def thumbnail(file_path, multiple, save_dir, save_name, save_ext):
+def thumbnail(file_path, multiple, save_dir, save_name, save_ext=None):
     """
     生成缩略图
     :param file_path: 源文件

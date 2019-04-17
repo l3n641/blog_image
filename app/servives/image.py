@@ -20,7 +20,7 @@ class ImageService(CommonService):
             path = down_file('https:' + kwargs.get('url'), file_name, image_dir)
             update_to_qiniu(path, file_name)
             thumbnail_name = "thumbnail_" + file_name
-            thumbnail_path = thumbnail(path, 3, image_dir, thumbnail_name, 'jpeg')
+            thumbnail_path = thumbnail(path, 3, image_dir, thumbnail_name)
             update_to_qiniu(thumbnail_path, thumbnail_name)
 
             return super(ImageService, self).save(file_name=file_name, **kwargs)
