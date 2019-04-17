@@ -15,10 +15,12 @@ def spider():
         url = 'https://www.apptu.cn/wp-admin/admin-ajax.php?action=getpost&paged=' + str(page)
         response = session.get(url)
         datas = response.json()
+
         if not datas:
             return True
         for data in datas:
             image_srv.save(url=data.get('message'), img_id=data.get('id'), bookmarked=data.get('bookmarked'))
-        db.session.commit()
+            db.session.commit()
+
         page = page + 1
         print(url)
