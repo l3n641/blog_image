@@ -19,7 +19,8 @@ def image():
     page = int(request.args.get('page') or DEFAULT_PAGE)
     datas = image_srv.get_list(order={'img_id': "desc"}, page=page)
     data_format = {
-        "real_url": fields.String(attribute="real_url"),
+        "image_url": fields.String(attribute="image_url"),
+        "thumbnail_url": fields.String(attribute="thumbnail_url"),
 
     }
     return jsonify(marshal(datas.items, data_format))

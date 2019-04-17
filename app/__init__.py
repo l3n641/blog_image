@@ -17,7 +17,7 @@ def create_app(object_name):
     db.init_app(app)
     migrate.init_app(app, db)
     imgs.init_app(app)
-    app.cli.add_command(spider)
+    register_commands(app)
     register_shell_context(app)
 
     return app
@@ -27,3 +27,9 @@ def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
         return dict(db=db)
+
+
+def register_commands(app):
+    commands = [spider]
+    for command in commands:
+        app.cli.add_command(command)

@@ -38,11 +38,11 @@
 <script src="{{ url_for('static', filename='img_online/js/dropload.js') }}"></script>
 
 <script type="text/javascript">
-    function create_img_block(url) {
+    function create_img_block(image_url, thumbnail_url) {
         var block = '                <div class="col-sm-6 col-md-3 L_center_img">\n' +
             '                    <div class="thumbnail">\n' +
-            '                        <a class="lightbox" href="' + url + '">\n' +
-            '                            <img src="' + url + '" alt="Park">\n' +
+            '                        <a class="lightbox" href="' + image_url + '">\n' +
+            '                            <img src="' + thumbnail_url + '" alt="Park">\n' +
             '                        </a>\n' +
             '                        <div class="caption">\n' +
             '\n' +
@@ -73,7 +73,7 @@
                         var arrLen = data.length;
                         if (arrLen > 0) {
                             for (var i = 0; i < arrLen; i++) {
-                                result += create_img_block(data[i].real_url)
+                                result += create_img_block(data[i].image_url,data[i].thumbnail_url)
                             }
 
                             $('.row').append(result);
