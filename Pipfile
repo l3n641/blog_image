@@ -17,6 +17,9 @@ flask-restful = "*"
 pillow = "*"
 qiniu = "*"
 gunicorn = "*"
+celery = "*"
+flask-redis = "*"
+flask-celery-helper = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,6 +1,8 @@
 import requests, os
 from qiniu import Auth, put_file
 from PIL import Image
+from requests_html import HTMLSession
+from app.extensions import db
 
 
 def down_file(resource, file_name, save_path):
@@ -59,3 +61,27 @@ def thumbnail(file_path, multiple, save_dir, save_name, save_ext=None):
     img.thumbnail((w // multiple, h // multiple))
     img.save(path, save_ext)
     return path
+
+
+def spider_image():
+    """
+    爬取网页内容
+    :return:
+    """
+    from app.servives import image_srv
+
+    session = HTMLSession()
+    page = 1
+    while True:
+        url = 'https://www.apptu.cn/wp-admin/admin-ajax.php?action=getpost&paged=' + str(page)
+        response = session.get(url)
+        datas = response.json()
+
+        if not datas:
+            return True
+        for data in datas:
+            image_srv.save(url=data.get('message'), img_id=data.get('id'), bookmarked=data.get('bookmarked'))
+            db.session.commit()
+
+        page = page + 1
+        print(url)

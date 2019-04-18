@@ -3,7 +3,7 @@
 import logging
 
 from flask import Flask
-from app.extensions import db, migrate
+from app.extensions import db, migrate, cerery, redis
 from app import imgs
 from commands import spider
 
@@ -19,6 +19,8 @@ def create_app(object_name):
     imgs.init_app(app)
     register_commands(app)
     register_shell_context(app)
+    cerery.init_app(app)
+    redis.init_app(app)
 
     return app
 
