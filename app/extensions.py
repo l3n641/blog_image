@@ -5,5 +5,5 @@ from flask_redis import FlaskRedis
 
 db = SQLAlchemy()
 migrate = Migrate()
-cerery = Celery()
+celery = Celery()
 redis = FlaskRedis()
