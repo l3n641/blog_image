@@ -2,10 +2,12 @@ import os
 from dotenv import load_dotenv
 from app import create_app
 from flask import request
+from app.extensions import celery
 
 load_dotenv()
 
 app = create_app(os.getenv("FLASK_ENV"))
+
 
 
 @app.before_request
