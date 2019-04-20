@@ -1,7 +1,7 @@
-from app.extensions import cerery
+from app.extensions import celery
 from app.functions import spider_image
 
 
-@cerery.task()
+@celery.task()
 def spider():
     spider_image()

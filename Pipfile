@@ -20,6 +20,7 @@ gunicorn = "*"
 celery = "*"
 flask-redis = "*"
 flask-celery-helper = "*"
+flask-shell-ipython = "*"
 
 [requires]
 python_version = "3.7"
