@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="zh">
 <head>
+    <link rel="shortcut icon" href="{{url_for('static',filename='img/favicon.ico')}}">
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -73,7 +75,7 @@
                         var arrLen = data.length;
                         if (arrLen > 0) {
                             for (var i = 0; i < arrLen; i++) {
-                                result += create_img_block(data[i].image_url,data[i].thumbnail_url)
+                                result += create_img_block(data[i].image_url, data[i].thumbnail_url)
                             }
 
                             $('.row').append(result);
